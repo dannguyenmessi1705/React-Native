@@ -37,11 +37,11 @@ export default function App() {
       </View>
       <View style={styles.contentContainer}>
         <FlatList
-          data={goals}
-          keyExtractor={(item, index) => item.id}
-          alwaysBounceVertical={false}
-          showsVerticalScrollIndicator={false}
-          renderItem={(itemData) => (
+          data={goals} // List dữ liệu cần render
+          keyExtractor={(item, index) => item.id} // Hàm tạo key cho mỗi item, keyExtractor nhận vào 2 tham số là item và index, trả về giá trị id của item trong goals
+          alwaysBounceVertical={false} // Tắt chức năng cuộn khi kéo xuống dưới cùng hoặc kéo lên trên cùng khi nội dung không vượt quá View cha
+          showsVerticalScrollIndicator={false} // Tắt thanh cuộn bên phải
+          renderItem={(itemData) => ( // Hàm render mỗi item trong data
             <View style={styles.goalItem}>
               <Text style={styles.goalText}>{itemData.item.text}</Text>
             </View>
