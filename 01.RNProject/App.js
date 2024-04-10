@@ -1,16 +1,28 @@
+import { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 export default function App() {
+  const [courseGoal, setCourseGoal] = useState("");
+  const handleTextInput = (textEntered) => {
+    setCourseGoal(textEntered);
+  };
+  const handleAddCourse = () => {
+    console.log(courseGoal);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput} placeholder="Your course goal" />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Your course goal"
+          onChangeText={handleTextInput}
+        />
         {/* Tạo input, trong RN sẽ là self close tag */}
-        <Button title="Add course" />
+        <Button title="Add course" onPress={handleAddCourse} />
         {/* Tạo button, trong RN sẽ là self close tag, Button trong RN sẽ không có thẻ style */}
       </View>
       <View style={styles.contentContainer}>
-        <Text>List of courses...</Text>
+        <Text>List of courses...{courseGoal}</Text>
       </View>
     </View>
   );
