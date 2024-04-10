@@ -1,30 +1,33 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.dummyText}>Hello World</Text>
+      <View style={styles.inputContainer}>
+        <TextInput style={styles.textInput} placeholder="Your name" />
+        {/* Tạo input, trong RN sẽ là self close tag */}
+        <Button title="Add text" />
+        {/* Tạo button, trong RN sẽ là self close tag */}
       </View>
-      <Text style={styles.dummyText}>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-      <Button title="Start" />
+      <Text>List of app...</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    padding: 50,
   },
-  dummyText: {
-    borderWidth: 2,
-    borderColor: "red",
-    margin: 16,
-    padding: 16,
-  }
-}); // Tạo style cho từng attribute
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    width: "80%",
+    margin: 8,
+    padding: 8,
+  },
+});
+// Tạo style cho từng attribute
