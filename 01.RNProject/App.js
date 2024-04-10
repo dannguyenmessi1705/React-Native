@@ -29,8 +29,14 @@ export default function App() {
       </View>
       <View style={styles.contentContainer}>
         {goals.map((goal) => (
-          <Text key={goal}>{goal}</Text>
+          <View style={styles.goalItem} key={goal}>
+            <Text style={styles.goalText}>{goal}</Text>
+          </View>
         ))}
+        {/* Duyệt mảng goals và hiển thị ra màn hình 
+          Luôn nhớ rằng mỗi phần tử  Text được render ra phải được bao bọc bởi một View để có thể áp dụng style cho nó, vì IOS không cho phép render Text mà không bao bọc bởi View
+          Ngoài ra để áp dụng các styke như color, fontSize, fontWeight cho Text thì phải sử dụng style attribute của Text, không thể sử dụng style attribute của View để áp dụng cho Text vì React Native không dùng CSS và không có chuyện kế thừa style như CSS
+        */}
       </View>
     </View>
   );
@@ -60,6 +66,15 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 4,
+  },
+  goalItem: {
+    padding: 8,
+    margin: 8,
+    backgroundColor: "#5ea0cc",
+    borderRadius: 6,
+  },
+  goalText: {
+    color: "white",
   },
 });
 // Tạo style cho từng attribute
