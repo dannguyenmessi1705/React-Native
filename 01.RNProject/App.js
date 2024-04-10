@@ -2,13 +2,19 @@ import { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 export default function App() {
-  const [courseGoal, setCourseGoal] = useState("");
+  const [courseGoal, setCourseGoal] = useState(""); // Khởi tạo giá trị rỗng cho biến courseGoal
+  const [goals, setGoals] = useState([]); // Khởi tạo mảng rỗng cho biến goals
+
+  // Hàm xử lý khi người dùng nhập text vào input
   const handleTextInput = (textEntered) => {
     setCourseGoal(textEntered);
   };
+
+  // Hàm xử lý khi người dùng ấn nút Add course
   const handleAddCourse = () => {
-    console.log(courseGoal);
+    setGoals([...goals, courseGoal]);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -22,7 +28,9 @@ export default function App() {
         {/* Tạo button, trong RN sẽ là self close tag, Button trong RN sẽ không có thẻ style */}
       </View>
       <View style={styles.contentContainer}>
-        <Text>List of courses...{courseGoal}</Text>
+        {goals.map((goal) => (
+          <Text key={goal}>{goal}</Text>
+        ))}
       </View>
     </View>
   );
