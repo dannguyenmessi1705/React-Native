@@ -4,3 +4,6 @@
 |:-------:|:-------:|:---:|:------------:|
 | `<div>`   | android.View | UIView | `<View>` |
 | `<input>` | EditText | UITextField | `<TextInput>` |
+| `<button>` | Button | UIButton | `<Button>` |
+| `<p>` | TextView | UILabel | `<Text>` |
+| overflows | ScrollView | UIScrollView | `<ScrollView>` |
