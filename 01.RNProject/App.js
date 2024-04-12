@@ -29,7 +29,7 @@ export default function App() {
     <View style={styles.container}>
       <Button
         title="Create new course"
-        color="#210644"
+        color="#a065ec"
         onPress={handleShowModal}
       />
       <GoalInput

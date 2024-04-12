@@ -7,3 +7,4 @@
 | `<button>` | Button | UIButton | `<Button>` |
 | `<p>` | TextView | UILabel | `<Text>` |
 | overflows | ScrollView | UIScrollView | `<ScrollView>` |
+| `<img>` | ImageView | UIImageView | `<Image>` |

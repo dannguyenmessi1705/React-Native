@@ -1,4 +1,11 @@
-import { View, TextInput, Button, StyleSheet, Modal } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  Modal,
+  Image,
+} from "react-native";
 import { useState } from "react";
 
 function GoalInput({ handleAddCourse, showModal, handleHideModal }) {
@@ -13,6 +20,10 @@ function GoalInput({ handleAddCourse, showModal, handleHideModal }) {
     <Modal visible={showModal} animationType="slide">
       {/* Tạo Modal, visible để hiển thị hoặc ẩn Modal, animationType để thiết lập kiểu hiệu ứng khi hiển thị Modal */}
       <View style={styles.inputContainer}>
+        <Image
+          style={styles.image}
+          source={require("../assets/images/goal.png")}
+        />
         <TextInput
           style={styles.textInput}
           placeholder="Your course goal"
@@ -22,16 +33,17 @@ function GoalInput({ handleAddCourse, showModal, handleHideModal }) {
         {/* Tạo input, trong RN sẽ là self close tag */}
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
+            <Button title="Cancel" onPress={handleHideModal} color='#f31282'/>
+          </View>
+          <View style={styles.button}>
             <Button
               title="Add goal"
               onPress={() => {
                 handleAddCourse(courseGoal);
                 setCourseGoal("");
               }}
+              color='#b180f0'
             />
-          </View>
-          <View style={styles.button}>
-            <Button title="Cancel" onPress={handleHideModal} />
           </View>
         </View>
 
@@ -46,14 +58,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    backgroundColor: "#311b6b",
     marginBottom: 24,
     padding: 16,
   },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 8,
+  },
   textInput: {
     borderWidth: 1,
-    borderColor: "#cccccc",
+    borderColor: "#e4d0ff",
+    backgroundColor: "#e4d0ff",
+    color: "#120438",
+    borderRadius: 6,
     width: "100%",
     margin: 8,
     padding: 8,
