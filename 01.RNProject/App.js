@@ -1,51 +1,28 @@
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  const [courseGoal, setCourseGoal] = useState(""); // Khởi tạo giá trị rỗng cho biến courseGoal
   const [goals, setGoals] = useState([]); // Khởi tạo mảng rỗng cho biến goals
 
-  // Hàm xử lý khi người dùng nhập text vào input
-  const handleTextInput = (textEntered) => {
-    setCourseGoal(textEntered);
-  };
-
   // Hàm xử lý khi người dùng ấn nút Add course
-  const handleAddCourse = () => {
+  const handleAddCourse = (courseGoal) => {
     setGoals([...goals, { text: courseGoal, id: Math.random().toString() }]);
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Your course goal"
-          onChangeText={handleTextInput}
-        />
-        {/* Tạo input, trong RN sẽ là self close tag */}
-        <Button title="Add course" onPress={handleAddCourse} />
-        {/* Tạo button, trong RN sẽ là self close tag, Button trong RN sẽ không có thẻ style */}
-      </View>
+      <GoalInput handleAddCourse={handleAddCourse} />
       <View style={styles.contentContainer}>
         <FlatList
           data={goals} // List dữ liệu cần render
           keyExtractor={(item, index) => item.id} // Hàm tạo key cho mỗi item, keyExtractor nhận vào 2 tham số là item và index, trả về giá trị id của item trong goals
           alwaysBounceVertical={false} // Tắt chức năng cuộn khi kéo xuống dưới cùng hoặc kéo lên trên cùng khi nội dung không vượt quá View cha
           showsVerticalScrollIndicator={false} // Tắt thanh cuộn bên phải
-          renderItem={(itemData) => ( // Hàm render mỗi item trong data
-            <View style={styles.goalItem}>
-              <Text style={styles.goalText}>{itemData.item.text}</Text>
-            </View>
-          )}
+          renderItem={(
+            itemData // Hàm render mỗi item trong data
+          ) => <GoalItem itemData={itemData} />}
         />
         {/* <ScrollView
           alwaysBounceVertical={false}
@@ -76,30 +53,8 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 16,
   },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
-    marginBottom: 24,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: "#cccccc",
-    width: "70%",
-    margin: 8,
-    padding: 8,
-  },
   contentContainer: {
     flex: 4,
-  },
-  goalItem: {
-    padding: 8,
-    margin: 8,
-    backgroundColor: "#5ea0cc",
-    borderRadius: 6,
   },
   goalText: {
     color: "white",
