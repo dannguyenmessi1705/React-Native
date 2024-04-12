@@ -11,6 +11,11 @@ export default function App() {
     setGoals([...goals, { text: courseGoal, id: Math.random().toString() }]);
   };
 
+  const handleDeleteCourse = (id) => {
+    console.log(id)
+    setGoals(goals => goals.filter((goal) => goal.id !== id));
+  };
+
   return (
     <View style={styles.container}>
       <GoalInput handleAddCourse={handleAddCourse} />
@@ -22,7 +27,7 @@ export default function App() {
           showsVerticalScrollIndicator={false} // Tắt thanh cuộn bên phải
           renderItem={(
             itemData // Hàm render mỗi item trong data
-          ) => <GoalItem itemData={itemData} />}
+          ) => <GoalItem itemData={itemData} handleDeleteCourse={handleDeleteCourse}/>}
         />
         {/* <ScrollView
           alwaysBounceVertical={false}
