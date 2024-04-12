@@ -1,14 +1,24 @@
 import { useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Button } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
 export default function App() {
   const [goals, setGoals] = useState([]); // Khởi tạo mảng rỗng cho biến goals
+  const [showModal, setShowModal] = useState(false); // Khởi tạo giá trị false cho biến showModal
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleHideModal = () => {
+    setShowModal(false);
+  };
 
   // Hàm xử lý khi người dùng ấn nút Add course
   const handleAddCourse = (courseGoal) => {
     setGoals([...goals, { text: courseGoal, id: Math.random().toString() }]);
+    handleHideModal();
   };
 
   const handleDeleteCourse = (id) => {
@@ -17,7 +27,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <GoalInput handleAddCourse={handleAddCourse} />
+      <Button
+        title="Create new course"
+        color="#210644"
+        onPress={handleShowModal}
+      />
+      <GoalInput
+        handleAddCourse={handleAddCourse}
+        showModal={showModal}
+        handleHideModal={handleHideModal}
+      />
       <View style={styles.contentContainer}>
         <FlatList
           data={goals} // List dữ liệu cần render
