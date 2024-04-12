@@ -12,8 +12,7 @@ export default function App() {
   };
 
   const handleDeleteCourse = (id) => {
-    console.log(id)
-    setGoals(goals => goals.filter((goal) => goal.id !== id));
+    setGoals((goals) => goals.filter((goal) => goal.id !== id));
   };
 
   return (
@@ -27,7 +26,12 @@ export default function App() {
           showsVerticalScrollIndicator={false} // Tắt thanh cuộn bên phải
           renderItem={(
             itemData // Hàm render mỗi item trong data
-          ) => <GoalItem itemData={itemData} handleDeleteCourse={handleDeleteCourse}/>}
+          ) => (
+            <GoalItem
+              itemData={itemData}
+              handleDeleteCourse={handleDeleteCourse}
+            />
+          )}
         />
         {/* <ScrollView
           alwaysBounceVertical={false}
@@ -60,9 +64,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 4,
-  },
-  goalText: {
-    color: "white",
   },
 });
 // Tạo style cho từng attribute

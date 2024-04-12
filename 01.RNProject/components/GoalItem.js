@@ -1,21 +1,31 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-function GoalItem({ itemData , handleDeleteCourse}) {
+function GoalItem({ itemData, handleDeleteCourse }) {
   return (
-    <Pressable onPress={() => handleDeleteCourse(itemData.item.id)}>
-      <View style={styles.goalItem}>
+    <View style={styles.goalItem}>
+      <Pressable
+        android_ripple={{ color: "#210644" }}
+        onPress={() => handleDeleteCourse(itemData.item.id)}
+        style={({ pressed }) => pressed && styles.pressItem} // Khi người dùng ấn vào item, sẽ thay đổi style của item
+      >
         <Text style={styles.goalText}>{itemData.item.text}</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   goalItem: {
-    padding: 8,
     margin: 8,
     backgroundColor: "#5ea0cc",
     borderRadius: 6,
+  },
+  goalText: {
+    padding: 8,
+    color: "#fff",
+  },
+  pressItem: {
+    opacity: 0.5,
   },
 });
 
