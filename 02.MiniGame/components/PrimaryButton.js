@@ -1,8 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
-function PrimaryButton({ children }) {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+function PrimaryButton({ onPress, children }) {
   return (
     <View style={styles.buttonOuterContainer}>
       <Pressable
@@ -12,7 +9,7 @@ function PrimaryButton({ children }) {
             : styles.buttonInnerContainer
         } // Hiệu ứng khi nhấn button cho ios, nếu pressed thì thêm hiệu ứng iosPress và buttonInnerContainer, còn không thì chỉ thêm buttonInnerContainer
         android_ripple={{ color: "#640233" }} // Hiệu ứng khi nhấn button cho android
-        onPress={handlePress}
+        onPress={onPress}
       >
         <Text style={styles.buttonText}>{children}</Text>
       </Pressable>
