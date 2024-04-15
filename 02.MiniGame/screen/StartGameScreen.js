@@ -24,7 +24,7 @@ function StartGameScreen() {
 const styles = StyleSheet.create({
   inputContainre: {
     alignItems: "center",
-    backgroundColor: "#4e0329",
+    backgroundColor: "#440323",
     marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
