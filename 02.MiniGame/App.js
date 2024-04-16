@@ -1,27 +1,52 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
-import { useFonts } from "expo-font"; // sử dụng font từ file font trong assets
-import AppLoading from "expo-app-loading";
+import { useState, useEffect, useCallback } from "react";
+import * as Font from "expo-font"; // sử dụng font từ file font trong assets
+import * as SplashScreen from "expo-splash-screen"; // Mặc định SplashScreen là 1 màn hình trắng
 
 import StartGameScreen from "./screen/StartGameScreen";
 import GameScreen from "./screen/GameScreen";
 import GameOverScreen from "./screen/GameOverScreen";
 import Color from "./constants/Color";
 
+SplashScreen.preventAutoHideAsync(); // ngăn màn hình loading tự đóng khi tải xong
 export default function App() {
   const [numberEntered, setNumberEntered] = useState();
   const [gameOver, setGameOver] = useState(false);
-  const [fonts] = useFonts({
-    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
-    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
-  }); // tải font từ file font trong assets
+  const [isLoadingFont, setIsLoadingFont] = useState(false);
 
-  if (!fonts) return <AppLoading />; // nếu font chưa tải xong thì hiển thị màn hình loading
+  useEffect(() => {
+    const prepare = async () => {
+      try {
+        // tải font từ file font trong assets
+        await Font.loadAsync({
+          "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+          "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+        });
+      } catch (error) {
+        console.warn(error); // log lỗi nếu có
+      } finally {
+        setIsLoadingFont(true); // set isLoadingFont thành true
+      }
+    };
+    prepare(); // gọi hàm prepare
+  }, []);
+
+  const handleFinishLoading = useCallback(async () => {
+    if (isLoadingFont) {
+      // kiểm tra nếu isLoadingFont là true
+      await SplashScreen.hideAsync(); // ẩn màn hình loading
+    }
+  }, [isLoadingFont]); // thực hiện hàm này khi isLoadingFont thay đổi
+
+  if (!isLoadingFont) {
+    return null; // nếu isLoadingFont là false thì return null
+  }
 
   return (
     <LinearGradient
+      onLayout={handleFinishLoading} // thực hiện hàm handleFinishLoading khi layout được render
       colors={[Color.primary700, Color.accent500]}
       style={styles.container}
     >
