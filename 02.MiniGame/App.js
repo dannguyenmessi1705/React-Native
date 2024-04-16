@@ -11,7 +11,10 @@ export default function App() {
   const [numberEntered, setNumberEntered] = useState();
 
   return (
-    <LinearGradient colors={[Color.primary700, Color.accent500]} style={styles.container}>
+    <LinearGradient
+      colors={[Color.primary700, Color.accent500]}
+      style={styles.container}
+    >
       <ImageBackground
         source={require("./assets/images/background.png")} // ImageBackground source
         style={styles.container} // ImageBackground style
@@ -20,7 +23,7 @@ export default function App() {
       >
         <SafeAreaView style={styles.container}>
           {numberEntered ? (
-            <GameScreen />
+            <GameScreen initialNumber={numberEntered} />
           ) : (
             <StartGameScreen setStartGame={setNumberEntered} />
           )}
