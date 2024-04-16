@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     textAlign: "center",
+    fontFamily: "open-sans",
   },
   iosPress: {
     opacity: 0.75,

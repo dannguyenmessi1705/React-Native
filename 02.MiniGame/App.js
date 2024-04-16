@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
+import { useFonts } from "expo-font"; // sử dụng font từ file font trong assets
+import AppLoading from "expo-app-loading";
 
 import StartGameScreen from "./screen/StartGameScreen";
 import GameScreen from "./screen/GameScreen";
@@ -11,6 +13,12 @@ import Color from "./constants/Color";
 export default function App() {
   const [numberEntered, setNumberEntered] = useState();
   const [gameOver, setGameOver] = useState(false);
+  const [fonts] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  }); // tải font từ file font trong assets
+
+  if (!fonts) return <AppLoading />; // nếu font chưa tải xong thì hiển thị màn hình loading
 
   return (
     <LinearGradient

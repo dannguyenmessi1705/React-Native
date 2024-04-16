@@ -8,11 +8,12 @@ function Tittle({ children }) {
 const styles = StyleSheet.create({
   tittle: {
     fontSize: 24,
-    color: 'white',
+    color: "white",
+    fontFamily: "open-sans-bold",
     fontWeight: "bold",
     textAlign: "center",
     padding: 12,
-    borderColor: 'white',
+    borderColor: "white",
     borderWidth: 2,
   },
 });
