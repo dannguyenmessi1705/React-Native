@@ -5,10 +5,12 @@ import { useState } from "react";
 
 import StartGameScreen from "./screen/StartGameScreen";
 import GameScreen from "./screen/GameScreen";
+import GameOverScreen from "./screen/GameOverScreen";
 import Color from "./constants/Color";
 
 export default function App() {
   const [numberEntered, setNumberEntered] = useState();
+  const [gameOver, setGameOver] = useState(false);
 
   return (
     <LinearGradient
@@ -22,8 +24,13 @@ export default function App() {
         imageStyle={styles.image} // imageStyle cho ảnh nền
       >
         <SafeAreaView style={styles.container}>
-          {numberEntered ? (
-            <GameScreen initialNumber={numberEntered} />
+          {gameOver ? (
+            <GameOverScreen />
+          ) : numberEntered ? (
+            <GameScreen
+              initialNumber={numberEntered}
+              setGameOver={setGameOver}
+            />
           ) : (
             <StartGameScreen setStartGame={setNumberEntered} />
           )}

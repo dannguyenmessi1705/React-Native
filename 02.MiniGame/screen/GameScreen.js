@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import PrimaryButton from "../components/ui/PrimaryButton";
 import NumberGuest from "../components/game/NumberGuest";
@@ -15,9 +15,15 @@ function getRandomNumber(start, end, initialNumber) {
 let minBoundary = 0;
 let maxBoundary = 100;
 
-function GameScreen({ initialNumber }) {
-  const numberRdn = getRandomNumber(maxBoundary, maxBoundary, initialNumber);
+function GameScreen({ initialNumber, setGameOver }) {
+  const numberRdn = getRandomNumber(0, 100, initialNumber);
   const [numberGuest, setNumberGuest] = useState(numberRdn);
+
+  useEffect(() => {
+    if (numberGuest === initialNumber) {
+      setGameOver(true);
+    }
+  }, [numberGuest, initialNumber, setGameOver]);
 
   function handleButton(command) {
     if (
