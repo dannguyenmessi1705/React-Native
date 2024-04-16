@@ -3,6 +3,10 @@ import { useState } from "react";
 
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Color from "../constants/Color";
+import Tittle from "../components/ui/Tittle";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
+
 function StartGameScreen({ setStartGame }) {
   const [numberEntered, setNumberEntered] = useState("");
 
@@ -26,40 +30,35 @@ function StartGameScreen({ setStartGame }) {
     setStartGame(number); // Gọi hàm setStartGame với tham số là number
   };
   return (
-    <View style={styles.inputContainre}>
-      <TextInput
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType="numeric"
-        value={numberEntered}
-        onChangeText={handleNumberInput}
-      />
-      <View style={styles.buttonContainer}>
-        <View style={styles.button}>
-          <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>
+    <View style={styles.rootContainer}>
+      <Tittle>Guest My Number</Tittle>
+      <Card>
+        <InstructionText>Enter the Number</InstructionText>
+        <TextInput
+          style={styles.numberInput}
+          maxLength={2}
+          keyboardType="numeric"
+          value={numberEntered}
+          onChangeText={handleNumberInput}
+        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.button}>
+            <PrimaryButton onPress={handleConfirm}>Confirm</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.button}>
-          <PrimaryButton onPress={handleConfirm}>Confirm</PrimaryButton>
-        </View>
-      </View>
+      </Card>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  inputContainre: {
+  rootContainer: {
+    flex: 1,
     alignItems: "center",
-    backgroundColor: Color.primary800,
     marginTop: 100,
-    marginHorizontal: 24,
-    padding: 16,
-    borderRadius: 8,
-    // Android Shadow
-    elevation: 4,
-    // iOS Shadow
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
   },
   numberInput: {
     height: 50,

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import NumberGuest from "../components/game/NumberGuest";
 import Tittle from "../components/ui/Tittle";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 function getRandomNumber(start, end, initialNumber) {
   const rdnNum = Math.floor(Math.random() * (end - start)) + start;
@@ -48,13 +50,21 @@ function GameScreen({ initialNumber, setGameOver }) {
     <View style={styles.screen}>
       <Tittle>Opponent's Guess</Tittle>
       <NumberGuest>{numberGuest}</NumberGuest>
-      <View>
-        <Text style={styles.guide}>Lower or Higher</Text>
-      </View>
-      <View>
-        <PrimaryButton onPress={() => handleButton("lower")}>-</PrimaryButton>
-        <PrimaryButton onPress={() => handleButton("greater")}>+</PrimaryButton>
-      </View>
+      <Card>
+        <InstructionText styleOverride={styles.instruction}>Lower or Higher</InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.button}>
+            <PrimaryButton onPress={() => handleButton("lower")}>
+              -
+            </PrimaryButton>
+          </View>
+          <View style={styles.button}>
+            <PrimaryButton onPress={() => handleButton("greater")}>
+              +
+            </PrimaryButton>
+          </View>
+        </View>
+      </Card>
     </View>
   );
 }
@@ -65,12 +75,16 @@ const styles = StyleSheet.create({
     padding: 24,
     marginTop: 100,
   },
-  guide: {
-    textAlign: "center",
-    color: "white",
+  instruction: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 24,
+    color: "white",
+    marginBottom: 16
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+  },
+  button: {
+    flex: 1,
   },
 });
 
