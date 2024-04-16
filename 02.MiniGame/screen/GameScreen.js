@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, FlatList, StyleSheet, Alert } from "react-native";
 import { useState, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
 
@@ -7,6 +7,7 @@ import NumberGuest from "../components/game/NumberGuest";
 import Tittle from "../components/ui/Tittle";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
+import GuestLogItem from "../components/game/GuestLogItem";
 
 function getRandomNumber(start, end, initialNumber) {
   const rdnNum = Math.floor(Math.random() * (end - start)) + start;
@@ -18,15 +19,23 @@ function getRandomNumber(start, end, initialNumber) {
 let minBoundary = 0;
 let maxBoundary = 100;
 
-function GameScreen({ initialNumber, setGameOver }) {
+function GameScreen({ initialNumber, setGameOver, setGuestTimes }) {
   const numberRdn = getRandomNumber(0, 100, initialNumber);
   const [numberGuest, setNumberGuest] = useState(numberRdn);
+  const [logGuess, setLogGuess] = useState([]);
 
   useEffect(() => {
     if (numberGuest === initialNumber) {
+      setGuestTimes(logGuess.length + 1);
       setGameOver(true);
     }
-  }, [numberGuest, initialNumber, setGameOver]);
+    setLogGuess((prev) => [...prev, numberGuest]);
+  }, [numberGuest, initialNumber, setGameOver, setLogGuess]);
+
+  useEffect(() => {
+    minBoundary = 0;
+    maxBoundary = 100;
+  }, []);
 
   function handleButton(command) {
     if (
@@ -58,7 +67,7 @@ function GameScreen({ initialNumber, setGameOver }) {
         <View style={styles.buttonsContainer}>
           <View style={styles.button}>
             <PrimaryButton onPress={() => handleButton("lower")}>
-            <Feather name="minus" size={24}></Feather>
+              <Feather name="minus" size={24}></Feather>
             </PrimaryButton>
           </View>
           <View style={styles.button}>
@@ -68,6 +77,15 @@ function GameScreen({ initialNumber, setGameOver }) {
           </View>
         </View>
       </Card>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        alwaysBounceVertical={false}
+        data={logGuess}
+        keyExtractor={(data, index) => index}
+        renderItem={(item) => (
+          <GuestLogItem guestNumber={item.item} roundNumber={item.index} />
+        )}
+      />
     </View>
   );
 }
