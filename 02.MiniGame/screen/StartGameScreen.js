@@ -2,7 +2,7 @@ import { View, TextInput, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 
 import PrimaryButton from "../components/PrimaryButton";
-function StartGameScreen() {
+function StartGameScreen({ setStartGame }) {
   const [numberEntered, setNumberEntered] = useState("");
 
   const handleNumberInput = (input) => {
@@ -22,7 +22,7 @@ function StartGameScreen() {
       ]); // Hiển thị thông báo với nội dung "Invalid Number!" và "Number has to be between 1 and 99." và button "Okay" với style "destructive" và onPress là hàm handleReset
       return;
     }
-    console.log("OK");
+    setStartGame(number); // Gọi hàm setStartGame với tham số là number
   };
   return (
     <View style={styles.inputContainre}>
