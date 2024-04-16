@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
 import { useState, useEffect } from "react";
+import { Feather } from "@expo/vector-icons";
 
 import PrimaryButton from "../components/ui/PrimaryButton";
 import NumberGuest from "../components/game/NumberGuest";
@@ -51,16 +52,18 @@ function GameScreen({ initialNumber, setGameOver }) {
       <Tittle>Opponent's Guess</Tittle>
       <NumberGuest>{numberGuest}</NumberGuest>
       <Card>
-        <InstructionText styleOverride={styles.instruction}>Lower or Higher</InstructionText>
+        <InstructionText styleOverride={styles.instruction}>
+          Lower or Higher
+        </InstructionText>
         <View style={styles.buttonsContainer}>
           <View style={styles.button}>
             <PrimaryButton onPress={() => handleButton("lower")}>
-              -
+            <Feather name="minus" size={24}></Feather>
             </PrimaryButton>
           </View>
           <View style={styles.button}>
             <PrimaryButton onPress={() => handleButton("greater")}>
-              +
+              <Feather name="plus" size={24}></Feather>
             </PrimaryButton>
           </View>
         </View>
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
   instruction: {
     fontSize: 24,
     color: "white",
-    marginBottom: 16
+    marginBottom: 16,
   },
   buttonsContainer: {
     flexDirection: "row",
