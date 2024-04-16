@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, ImageBackground } from "react-native";
+import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 
@@ -17,11 +17,13 @@ export default function App() {
         resizeMode="cover" // imageResizeMode
         imageStyle={styles.image} // imageStyle cho ảnh nền
       >
-        {numberEntered ? (
-          <GameScreen />
-        ) : (
-          <StartGameScreen setStartGame={setNumberEntered} />
-        )}
+        <SafeAreaView style={styles.container}>
+          {numberEntered ? (
+            <GameScreen />
+          ) : (
+            <StartGameScreen setStartGame={setNumberEntered} />
+          )}
+        </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );
