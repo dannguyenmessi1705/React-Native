@@ -1,4 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
+
+import Color from "../constants/Color";
 function PrimaryButton({ onPress, children }) {
   return (
     <View style={styles.buttonOuterContainer}>
@@ -8,7 +10,7 @@ function PrimaryButton({ onPress, children }) {
             ? [styles.buttonInnerContainer, styles.iosPress]
             : styles.buttonInnerContainer
         } // Hiệu ứng khi nhấn button cho ios, nếu pressed thì thêm hiệu ứng iosPress và buttonInnerContainer, còn không thì chỉ thêm buttonInnerContainer
-        android_ripple={{ color: "#640233" }} // Hiệu ứng khi nhấn button cho android
+        android_ripple={{ color: Color.primary500 }} // Hiệu ứng khi nhấn button cho android
         onPress={onPress}
       >
         <Text style={styles.buttonText}>{children}</Text>
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
     overflow: "hidden", // Ẩn phần nội dung vượt ra ngoài khung, nếu hiệu ứng khi nhấn button vượt ra ngoài khung thì sẽ bị ẩn
   },
   buttonInnerContainer: {
-    backgroundColor: "#72063c",
+    backgroundColor: Color.primary600,
     paddingVertical: 8,
     paddingHorizontal: 16,
     elevation: 2, // Hiệu ứng bóng cho button cho android
