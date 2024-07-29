@@ -1,14 +1,24 @@
-import { View, TextInput, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Alert,
+  useWindowDimensions,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import { useState } from "react";
 
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Color from "../constants/Color";
-import Tittle from "../components/ui/Tittle";
+import Tittle from "../components/ui/Tittle.android";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
 
 function StartGameScreen({ setStartGame }) {
   const [numberEntered, setNumberEntered] = useState("");
+
+  const { width, height } = useWindowDimensions(); // Lấy ra kích thước của màn hình
 
   const handleNumberInput = (input) => {
     setNumberEntered(input);
@@ -29,32 +39,42 @@ function StartGameScreen({ setStartGame }) {
     }
     setStartGame(number); // Gọi hàm setStartGame với tham số là number
   };
+
+  const marginTop = height < 380 ? 30 : 100; // Nếu chiều cao màn hình nhỏ hơn 380 (ngang) thì marginTop = 30, và ngược lại với màn hình dọc
+
   return (
-    <View style={styles.rootContainer}>
-      <Tittle>Guest My Number</Tittle>
-      <Card>
-        <InstructionText>Enter the Number</InstructionText>
-        <TextInput
-          style={styles.numberInput}
-          maxLength={2}
-          keyboardType="numeric"
-          value={numberEntered}
-          onChangeText={handleNumberInput}
-        />
-        <View style={styles.buttonContainer}>
-          <View style={styles.button}>
-            <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>
-          </View>
-          <View style={styles.button}>
-            <PrimaryButton onPress={handleConfirm}>Confirm</PrimaryButton>
-          </View>
+    <ScrollView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen} behavior="position">
+        <View style={[styles.rootContainer, { marginTop: marginTop }]}>
+          <Tittle>Guest My Number</Tittle>
+          <Card>
+            <InstructionText>Enter the Number</InstructionText>
+            <TextInput
+              style={styles.numberInput}
+              maxLength={2}
+              keyboardType="numeric"
+              value={numberEntered}
+              onChangeText={handleNumberInput}
+            />
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>
+              </View>
+              <View style={styles.button}>
+                <PrimaryButton onPress={handleConfirm}>Confirm</PrimaryButton>
+              </View>
+            </View>
+          </Card>
         </View>
-      </Card>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   rootContainer: {
     flex: 1,
     alignItems: "center",

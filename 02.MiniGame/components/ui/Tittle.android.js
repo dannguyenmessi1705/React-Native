@@ -2,7 +2,7 @@ import { Text, StyleSheet } from "react-native";
 
 import Color from "../../constants/Color";
 function Tittle({ children }) {
-  return <Text style={styles.tittle}>{children}</Text>;
+  return <Text style={styles.tittle}>{children} Android</Text>;
 }
 
 const styles = StyleSheet.create({
@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
     padding: 12,
     borderColor: "white",
     borderWidth: 2,
+    width: 300,
+    maxWidth: "80%"
   },
 });
 

@@ -54,36 +54,36 @@ export default function App() {
   return (
     <>
       <StatusBar style="inverted" />
-      <LinearGradient
-        onLayout={handleFinishLoading} // thực hiện hàm handleFinishLoading khi layout được render
-        colors={[Color.primary700, Color.accent500]}
-        style={styles.container}
-      >
-        <ImageBackground
-          source={require("./assets/images/background.png")} // ImageBackground source
-          style={styles.container} // ImageBackground style
-          resizeMode="cover" // imageResizeMode
-          imageStyle={styles.image} // imageStyle cho ảnh nền
+        <LinearGradient
+          onLayout={handleFinishLoading} // thực hiện hàm handleFinishLoading khi layout được render
+          colors={[Color.primary700, Color.accent500]}
+          style={styles.container}
         >
-          <SafeAreaView style={styles.container}>
-            {gameOver ? (
-              <GameOverScreen
-                guestTimes={guestTimes}
-                startNewGame={startNewGame}
-                initialNumber={numberEntered}
-              />
-            ) : numberEntered ? (
-              <GameScreen
-                initialNumber={numberEntered}
-                setGameOver={setGameOver}
-                setGuestTimes={setGuestTimes}
-              />
-            ) : (
-              <StartGameScreen setStartGame={setNumberEntered} />
-            )}
-          </SafeAreaView>
-        </ImageBackground>
-      </LinearGradient>
+          <ImageBackground
+            source={require("./assets/images/background.png")} // ImageBackground source
+            style={styles.container} // ImageBackground style
+            resizeMode="cover" // imageResizeMode
+            imageStyle={styles.image} // imageStyle cho ảnh nền
+          >
+            <SafeAreaView style={styles.container}>
+              {gameOver ? (
+                <GameOverScreen
+                  guestTimes={guestTimes}
+                  startNewGame={startNewGame}
+                  initialNumber={numberEntered}
+                />
+              ) : numberEntered ? (
+                <GameScreen
+                  initialNumber={numberEntered}
+                  setGameOver={setGameOver}
+                  setGuestTimes={setGuestTimes}
+                />
+              ) : (
+                <StartGameScreen setStartGame={setNumberEntered} />
+              )}
+            </SafeAreaView>
+          </ImageBackground>
+        </LinearGradient>
     </>
   );
 }

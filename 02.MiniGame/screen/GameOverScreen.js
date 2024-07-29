@@ -1,30 +1,58 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  useWindowDimensions,
+  ScrollView,
+} from "react-native";
 
-import Tittle from "../components/ui/Tittle";
+import Tittle from "../components/ui/Tittle.android";
 import Color from "../constants/Color";
 import PrimaryButton from "../components/ui/PrimaryButton";
 
 function GameOverScreen({ guestTimes, initialNumber, startNewGame }) {
+  const { width, height } = useWindowDimensions();
+  let imageSize = 300;
+  if (width < 380) {
+    imageSize = 150;
+  }
+  if (height < 400) {
+    imageSize = 80;
+  }
+  const imageStyle = {
+    width: imageSize,
+    height: imageSize,
+    borderRadius: imageSize / 2,
+  };
   return (
-    <View style={styles.rootContainer}>
-      <Tittle>GAME OVER</Tittle>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require("../assets/images/success.png")}
-        />
+    <ScrollView style={styles.screen}>
+      <View style={styles.rootContainer}>
+        <Tittle>GAME OVER</Tittle>
+        <View style={[styles.imageContainer, imageStyle]}>
+          <Image
+            style={styles.image}
+            source={require("../assets/images/success.png")}
+          />
+        </View>
+        <Text style={styles.text}>
+          The phone needs <Text style={styles.highlight}>{guestTimes}</Text>{" "}
+          time to guess the number{" "}
+          <Text style={styles.highlight}>{initialNumber}</Text>
+        </Text>
+        <PrimaryButton onPress={startNewGame}>Start new game</PrimaryButton>
       </View>
-      <Text style={styles.text}>
-        The phone needs <Text style={styles.highlight}>{guestTimes}</Text> time
-        to guess the number{" "}
-        <Text style={styles.highlight}>{initialNumber}</Text>
-      </Text>
-      <PrimaryButton onPress={startNewGame}>Start new game</PrimaryButton>
-    </View>
+    </ScrollView>
   );
 }
 
+// const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   rootContainer: {
     flex: 1,
     padding: 48,
@@ -32,9 +60,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   imageContainer: {
-    width: 300,
-    height: 300,
-    borderRadius: 150,
+    // width: deviceWidth < 380 ? 150 : 300,
+    // height: deviceWidth < 380 ? 150 : 300,
+    // borderRadius: deviceWidth < 380 ? 75 : 150,
     borderWidth: 3,
     borderColor: Color.primary800,
     overflow: "hidden",
