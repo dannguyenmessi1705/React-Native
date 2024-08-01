@@ -3,6 +3,7 @@ import { useLayoutEffect } from "react"; // Nên sử dụng useLayoutEffect tha
 
 import { MEALS, CATEGORIES } from "../data/dummy-data";
 import MealItem from "../components/MealItem";
+import MealsList from "../components/MealsList/MealsList";
 
 function MealsOverviewScreen({ route, navigation }) {
   // Sử dụng route để lấy tham số truyền vào (props route chỉ được sử  dụng trong component đã đăng ký với `Stack.Screen`)
@@ -22,28 +23,30 @@ function MealsOverviewScreen({ route, navigation }) {
     });
   }, [navigation, categoryId]); // [navigation, categoryId] là dependency array, nếu navigation hoặc categoryId thay đổi thì useLayoutEffect sẽ được gọi lại
 
-  const renderItem = (itemData) => {
-    const item = itemData.item;
-    const mealItempProps = {
-      id: item.id,
-      title: item.title,
-      imageUrl: item.imageUrl,
-      affordability: item.affordability,
-      complexity: item.complexity,
-      duration: item.duration,
-    };
-    return <MealItem {...mealItempProps} />;
-  };
+  return <MealsList items={displayMeals} />;
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={displayMeals}
-        keyExtractor={(item) => item.id}
-        renderItem={(itemData) => renderItem(itemData)}
-      />
-    </View>
-  );
+  // const renderItem = (itemData) => {
+  //   const item = itemData.item;
+  //   const mealItempProps = {
+  //     id: item.id,
+  //     title: item.title,
+  //     imageUrl: item.imageUrl,
+  //     affordability: item.affordability,
+  //     complexity: item.complexity,
+  //     duration: item.duration,
+  //   };
+  //   return <MealItem {...mealItempProps} />;
+  // };
+
+  // return (
+  //   <View style={styles.container}>
+  //     <FlatList
+  //       data={displayMeals}
+  //       keyExtractor={(item) => item.id}
+  //       renderItem={(itemData) => renderItem(itemData)}
+  //     />
+  //   </View>
+  // );
 }
 
 export default MealsOverviewScreen;

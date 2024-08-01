@@ -13,6 +13,10 @@ import FavoritesScreen from "./screen/FavoritesScreen";
 import Tab1 from "./screen/Tab1";
 import Tab2 from "./screen/Tab2";
 
+// import { FavoriteContextProvider } from "./store/context/FavoriteContext";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store";
+
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -62,15 +66,17 @@ const DrawerNavigator = () => {
 
 const BottomTabNavigator = () => {
   return (
-    <BottomTab.Navigator screenOptions={{ headerShown: false }} // Ẩn header
+    <BottomTab.Navigator
+      screenOptions={{ headerShown: false }} // Ẩn header
     >
       <BottomTab.Screen
         name="Favorites" // Tên màn hình
         component={FavoritesScreen} // Component sẽ render ra màn hình
-        options={{ // Các options của màn hình
-          tabBarIcon: ({ color, size }) => ( // Icon của màn hình, color và size được truyền vào từ BottomTab.Navigator, 1 function trả về 1 component
-            <Ionicons name="star" color={color} size={size} />
-          ),
+        options={{
+          // Các options của màn hình
+          tabBarIcon: (
+            { color, size } // Icon của màn hình, color và size được truyền vào từ BottomTab.Navigator, 1 function trả về 1 component
+          ) => <Ionicons name="star" color={color} size={size} />,
         }}
       />
       <BottomTab.Screen
@@ -98,37 +104,47 @@ const BottomTabNavigator = () => {
 export default function App() {
   return (
     <>
+      {/* <FavoriteContextProvider> */}
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Categories"
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#351401",
-            },
-            headerTintColor: "white",
-            contentStyle: {
-              backgroundColor: "#3f2f25",
-            },
-          }}
-        >
-          <Stack.Screen
-            name="Drawers"
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Categories"
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: "#351401",
+              },
+              headerTintColor: "white",
+              contentStyle: {
+                backgroundColor: "#3f2f25",
+              },
             }}
-          />
-          <Stack.Screen
-            name="MealsOverview"
-            component={MealsOverviewScreen}
-            options={{
-              title: "Meals Overview",
-            }}
-          />
-          <Stack.Screen name="MealDetails" component={MealDetailScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+          >
+            <Stack.Screen
+              name="Drawers"
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="MealsOverview"
+              component={MealsOverviewScreen}
+              options={{
+                title: "Meals Overview",
+              }}
+            />
+            <Stack.Screen
+              name="MealDetails"
+              component={MealDetailScreen}
+              options={{
+                title: "Meal Details",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+      {/* </FavoriteContextProvider> */}
     </>
   );
 }

@@ -1,9 +1,9 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Button } from "react-native";
 
-function Tab1() {
+function Tab1({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Tab1</Text>
+      <Button title="Open Drawer" onPress={() => navigation.toggleDrawer()} />
     </View>
   );
 }
