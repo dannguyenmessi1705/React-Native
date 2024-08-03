@@ -1,11 +1,15 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StatusBar } from "expo-status-bar";
 
-import LoginScreen from './screens/LoginScreen';
-import SignupScreen from './screens/SignupScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
-import { Colors } from './constants/styles';
+import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
+import WelcomeScreen from "./screens/WelcomeScreen";
+import { Colors } from "./constants/styles";
+import { AuthContextProvider, useAuth } from "./context/AuthContext";
+import { useCallback, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SplashScreen from "expo-splash-screen"
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +18,7 @@ function AuthStack() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: { backgroundColor: Colors.primary500 },
-        headerTintColor: 'white',
+        headerTintColor: "white",
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
@@ -29,7 +33,7 @@ function AuthenticatedStack() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: { backgroundColor: Colors.primary500 },
-        headerTintColor: 'white',
+        headerTintColor: "white",
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
@@ -38,20 +42,44 @@ function AuthenticatedStack() {
   );
 }
 
-function Navigation() {
+function Navigation({ authContext }) {
   return (
     <NavigationContainer>
-      <AuthStack />
+      {authContext.isAuthenticate ? <AuthenticatedStack /> : <AuthStack />}
     </NavigationContainer>
   );
+}
+
+function Root() {
+  const [isFetching, setIsFetching] = useState(true);
+  const authContext = useAuth();
+
+  useEffect(() => {
+    async function fetch() {
+      const storageToken = await AsyncStorage.getItem("token");
+      if (storageToken) {
+        authContext.authenticate(storageToken);
+      }
+      setIsFetching(false);
+    }
+    fetch()
+  }, []);
+
+  const loadingScreen = useCallback(async () => {
+    if (isFetching) {
+      await SplashScreen.hideAsync();
+    }
+  }, isFetching)
+  return <Navigation authContext={authContext} />;
 }
 
 export default function App() {
   return (
     <>
       <StatusBar style="light" />
-
-      <Navigation />
+      <AuthContextProvider>
+        <Root />
+      </AuthContextProvider>
     </>
   );
 }
