@@ -1,4 +1,4 @@
-const KEY = "AIzaSyAbdZ6we0YucdGaRq9Y44YllS6ZxYimE1g";
+const KEY = "Key lấy từ Firebase";
 const URL = "https://identitytoolkit.googleapis.com/v1/accounts";
 
 import axios from "axios";
