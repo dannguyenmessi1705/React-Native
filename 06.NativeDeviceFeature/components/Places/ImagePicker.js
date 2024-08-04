@@ -34,7 +34,11 @@ function ImagePicker() {
       // Nếu quyền truy cập camera bị từ chối
       return; // Thoát khỏi hàm
     }
-    const imagePicker = await launchCameraAsync(); // Mở camera và chụp ảnh
+    const imagePicker = await launchCameraAsync({
+      allowsEditing: true, // Cho phép chỉnh sửa ảnh
+      aspect: [16, 9], // Tỉ lệ ảnh (16:9)
+      quality: 0.7, // Chất lượng ảnh (70%)
+    }); // Mở camera và chụp ảnh
     setImage(imagePicker.assets[0].uri); // Lưu uri ảnh đã chụp vào state image
   }
 
