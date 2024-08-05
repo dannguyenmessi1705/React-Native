@@ -1,10 +1,10 @@
 import PlaceForm from "../components/Places/PlaceForm";
+import { insertPlace } from "../util/database";
 
 function AddPlace({ navigation }) {
-  function onCreatePlace(place) {
-    navigation.navigate("AllPlaces", {
-      place,
-    });
+  async function onCreatePlace(place) {
+    await insertPlace(place); // Thêm địa điểm vào database
+    navigation.navigate("AllPlaces");
   } // Hàm tạo mới địa điểm
   return <PlaceForm onCreatePlace={onCreatePlace} />;
 }

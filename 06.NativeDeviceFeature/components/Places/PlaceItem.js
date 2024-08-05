@@ -6,7 +6,7 @@ function PlaceItem({ place, onSelect }) {
   return (
     <Pressable
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
-      onPress={onSelect}
+      onPress={onSelect.bind(this, place.id)} // Gọi hàm onSelect với tham số là id của place trong component này (this)
     >
       <Image style={styles.image} source={{ uri: place.imageUri }} />
       <View style={styles.info}>
