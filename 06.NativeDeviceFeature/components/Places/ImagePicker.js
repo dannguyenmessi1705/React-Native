@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Colors } from "../../constants/colors";
 import OutlinedButton from "../UI/OutlinedButton";
 
-function ImagePicker() {
+function ImagePicker({ onTakeImage }) {
   const [image, setImage] = useState(null); // State chứa ảnh đã chụp
   const [cameraPermission, requestCameraPermission] = useCameraPermissions(); // Lấy thông tin quyền truy cập camera
 
@@ -39,7 +39,9 @@ function ImagePicker() {
       aspect: [16, 9], // Tỉ lệ ảnh (16:9)
       quality: 0.7, // Chất lượng ảnh (70%)
     }); // Mở camera và chụp ảnh
+
     setImage(imagePicker.assets[0].uri); // Lưu uri ảnh đã chụp vào state image
+    onTakeImage(imagePicker.assets[0].uri); // Truyền uri ảnh đã chụp vào hàm takeImageHandler
   }
 
   let imagePreview = <Text>No image picked yet.</Text>; // Mặc định hiển thị thông báo "No image picked yet."
