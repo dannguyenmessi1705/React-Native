@@ -37,6 +37,25 @@ async function setNotificationChannel() {
 } // Hàm này sẽ tạo channel cho Android >= 8 để hiện thông báo, có có thể có nhiều channel (Android >= 8)
 
 export default function App() {
+
+  useEffect(() => {
+    requestPermissionsForNotification();
+    setNotificationChannel();
+
+    const subscriptionReceivedNotification = Notifications.addNotificationReceivedListener((notify) => {
+      console.log("Received Notification: ", notify);
+    }) // Hàm này sẽ lắng nghe khi có thông báo đến
+
+    const subscriptionResponseNotification = Notifications.addNotificationResponseReceivedListener((res) => {
+      console.log("Response Notification: ", res);
+    }) // Hàm này sẽ lắng nghe khi có phản hồi từ thông báo (Từ User khi click vào thông báo)
+
+    return () => {
+      subscriptionReceivedNotification.remove(); // Hàm này sẽ ngừng lắng nghe khi Unmount component
+      subscriptionResponseNotification.remove(); // Hàm này sẽ ngừng lắng nghe khi Unmount component
+    }
+  }, []); // Hàm này sẽ chạy khi mở ứng dụng, dùng để cấp quyền và tạo channel
+
   async function handleButtonClickReceiveNotification() {
     await Notifications.scheduleNotificationAsync({ // Hàm này sẽ lên lịch hiện thông báo sau khi trigger bật lên
       content: {
@@ -50,11 +69,6 @@ export default function App() {
       }
     })
   }
-
-  useEffect(() => {
-    requestPermissionsForNotification();
-    setNotificationChannel();
-  }, []); // Hàm này sẽ chạy khi mở ứng dụng, dùng để cấp quyền và tạo channel
 
   return (
     <View style={styles.container}>
