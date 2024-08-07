@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "07.Notification",
-    "slug": "07.Notification",
+    "name": "Notification",
+    "slug": "Notification",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,10 +28,17 @@
         "expo-notifications",
         {
           "icon": "./assets/icon.png",
-          "defaultChannel": "default",
-          "sounds": ["./assets/notification.wav"]
+          "defaultChannel": "test",
+          "sounds": [
+            "./assets/notification.wav"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "764f3613-374a-49e7-8373-701aa8e6c82f"
+      }
+    }
   }
 }
